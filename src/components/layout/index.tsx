@@ -10,6 +10,7 @@ import { Button, Layout, Menu, Popover, theme } from "antd/lib";
 import { logout } from "@/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import PhoneDialPad from "../PhoneDial";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -48,16 +49,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: {
-      colorBgContainer,
-      borderRadiusLG,
-      colorBgBase,
-      colorBgLayout,
-      colorPrimary,
-    },
+    token: { colorBgLayout, colorPrimary },
   } = theme.useToken();
+  const [phoneOpen, setPhoneOpen] = useState(false);
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      {phoneOpen && <PhoneDialPad handleCancel={() => setPhoneOpen(false)} />}
       <Sider
         collapsible
         collapsed={collapsed}
@@ -66,9 +63,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
-          defaultSelectedKeys={["Team"]}
+          defaultSelectedKeys={["team"]}
           mode="inline"
-          //   selectedKeys={["Team"]}
           items={items}
         />
       </Sider>
@@ -89,6 +85,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
               marginRight: 16,
               cursor: "pointer",
             }}
+            onClick={() => setPhoneOpen(true)}
           />
           <Popover
             content={<Button onClick={handleLogout}>Logout</Button>}

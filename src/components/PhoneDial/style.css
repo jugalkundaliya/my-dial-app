@@ -1,0 +1,9 @@
+.phone-dial {
+  width: max-content !important;
+}
+.phone-dial .ant-modal-content {
+  padding: 0 !important;
+}
+.ant-modal-close-x {
+  color: #fff;
+}
